@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | Logística Solidária</title>
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/login.css"><link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body class="auth-body">
+  <main class="auth-layout">
+    <section class="auth-brand">
+      <a class="logo" href="index.html"><span class="logo-mark">♥</span> Logística <strong>Solidária</strong></a>
+      <div><span class="eyebrow">Faça parte da rede</span><h1>Sua participação pode transformar uma vida.</h1><p>Escolha como deseja contribuir e comece sua jornada solidária.</p></div>
+      <div class="auth-decoration">🌱　🫶　🌎</div>
+    </section>
+    <section class="auth-card-wrap">
+      <form class="auth-card signup-card" id="cadastroForm" novalidate>
+        <a class="back-link" href="index.html">← Voltar para o início</a>
+        <h2>Criar conta</h2><p class="form-intro">Preencha seus dados para participar.</p>
+        <div class="form-message" id="cadastroMessage"></div>
+        <div class="two-fields">
+          <div><label for="nome">Nome</label><input id="nome" type="text" placeholder="Seu nome"><small class="field-error" id="nomeError"></small></div>
+          <div><label for="telefone">Telefone</label><input id="telefone" type="tel" placeholder="(00) 00000-0000"><small class="field-error" id="telefoneError"></small></div>
+        </div>
+        <label for="cadEmail">E-mail</label><input id="cadEmail" type="email" placeholder="seu@email.com"><small class="field-error" id="cadEmailError"></small>
+        <label for="tipo">Tipo de usuário</label>
+        <select id="tipo"><option value="">Selecione uma opção</option><option>Doador</option><option>Beneficiário</option><option>Voluntário</option><option>ONG</option></select><small class="field-error" id="tipoError"></small>
+        <div class="two-fields">
+          <div><label for="cadSenha">Senha</label><div class="password-wrap"><input id="cadSenha" type="password" placeholder="Mínimo 6 caracteres"><button type="button" class="password-toggle" data-target="cadSenha">👁</button></div><small class="field-error" id="cadSenhaError"></small></div>
+          <div><label for="confirmarSenha">Confirmar senha</label><div class="password-wrap"><input id="confirmarSenha" type="password" placeholder="Repita a senha"><button type="button" class="password-toggle" data-target="confirmarSenha">👁</button></div><small class="field-error" id="confirmarSenhaError"></small></div>
+        </div>
+        <label class="check terms"><input type="checkbox" id="termos"> Aceito os termos de uso do projeto acadêmico.</label>
+        <button class="btn btn-primary btn-full" type="submit">Criar minha conta</button>
+        <p class="auth-footer">Já possui uma conta? <a href="login.html">Entrar</a></p>
+      </form>
+    </section>
+  </main>
+  <script src="js/cadastro.js"></script><script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastreamento | Logística Solidária</title>
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/dashboard.css"><link rel="stylesheet" href="css/responsivo.css">
+</head>
+<body class="dashboard-body">
+  <aside class="sidebar" id="sidebar"><a class="logo sidebar-logo" href="index.html"><span class="logo-mark">♥</span> Logística <strong>Solidária</strong></a>
+    <nav><a href="dashboard.html">▦ <span>Dashboard</span></a><a href="doacoes.html">🎁 <span>Doações</span></a><a href="#">📋 <span>Pedidos</span></a><a class="active" href="rastreamento.html">📍 <span>Rastreamento</span></a><a href="#">🔔 <span>Notificações <em>3</em></span></a><a href="perfil.html">👤 <span>Perfil</span></a></nav>
+    <a class="sidebar-logout" href="login.html">↪ <span>Sair</span></a>
+  </aside>
+  <main class="dashboard-main">
+    <header class="dashboard-header"><button class="mobile-sidebar-toggle" id="sidebarToggle">☰</button><div><span class="eyebrow">Acompanhamento</span><h1>Rastreamento</h1><p>Acompanhe o caminho de uma doação.</p></div><div class="avatar">MA</div></header>
+    <section class="tracking-card panel">
+      <div class="tracking-summary"><div class="tracking-box-icon">📦</div><div><span class="donation-category">DOA-1024</span><h2>Roupas infantis</h2><p>Origem: Maceió - AL &nbsp; → &nbsp; Destino: Rio Largo - AL</p></div><span class="status transit-status">Em transporte</span></div>
+      <div class="timeline">
+        <div class="timeline-item completed"><div class="timeline-dot">✓</div><div><h3>Doação recebida</h3><p>07/09/2026 às 09:15</p><span>A doação foi registrada na plataforma.</span></div></div>
+        <div class="timeline-item completed"><div class="timeline-dot">✓</div><div><h3>Preparação</h3><p>07/09/2026 às 11:40</p><span>Itens conferidos e separados para envio.</span></div></div>
+        <div class="timeline-item current"><div class="timeline-dot">🚚</div><div><h3>Em transporte</h3><p>08/09/2026 às 08:20</p><span>O voluntário está levando a doação ao destino.</span></div></div>
+        <div class="timeline-item"><div class="timeline-dot">✓</div><div><h3>Entregue</h3><p>Aguardando conclusão</p><span>Esta etapa será atualizada após a confirmação.</span></div></div>
+      </div>
+      <div class="tracking-note">💡 <b>Previsão:</b> entrega prevista para 09/09/2026.</div>
+    </section>
+  </main>
+  <script src="js/script.js"></script>
+</body>
+</html>
