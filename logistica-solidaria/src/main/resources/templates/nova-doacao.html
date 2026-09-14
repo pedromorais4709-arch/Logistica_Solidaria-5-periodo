@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Doação</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body class="auth-body">
+  <main class="auth-layout">
+    <section class="auth-card-wrap">
+      <form class="auth-card" th:action="@{/doacoes/nova}" th:object="${doacao}" method="post">
+        <h2>Nova doação</h2>
+        <label>Nome</label>
+        <input type="text" th:field="*{nome}" placeholder="Ex: Cesta básica">
+
+        <label>Categoria</label>
+        <select th:field="*{categoria}">
+          <option value="Alimentos">Alimentos</option>
+          <option value="Vestuário">Vestuário</option>
+          <option value="Higiene">Higiene</option>
+          <option value="Educação">Educação</option>
+        </select>
+
+        <label>Localização</label>
+        <input type="text" th:field="*{localizacao}" placeholder="Cidade - UF">
+
+        <label>Descrição</label>
+        <input type="text" th:field="*{descricao}">
+
+        <label>Quantidade</label>
+        <input type="text" th:field="*{quantidade}" placeholder="Ex: 20 unidades">
+
+        <label>Data</label>
+        <input type="text" th:field="*{data}" placeholder="dd/mm/aaaa">
+
+        <button class="btn btn-primary btn-full" type="submit">Cadastrar doação</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

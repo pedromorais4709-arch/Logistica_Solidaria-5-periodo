@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil | Logística Solidária</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <link rel="stylesheet" th:href="@{/css/responsivo.css}">
+</head>
+<body class="dashboard-body">
+  <aside class="sidebar" id="sidebar">
+    <a class="logo sidebar-logo" th:href="@{/}"><span class="logo-mark">♥</span> Logística <strong>Solidária</strong></a>
+    <nav>
+      <a th:href="@{/dashboard}">▦ <span>Dashboard</span></a>
+      <a th:href="@{/doacoes}">🎁 <span>Doações</span></a>
+      <a href="#">📋 <span>Pedidos</span></a>
+      <a th:href="@{/rastreamento}">📍 <span>Rastreamento</span></a>
+      <a href="#">🔔 <span>Notificações <em>3</em></span></a>
+      <a class="active" th:href="@{/perfil}">👤 <span>Perfil</span></a>
+    </nav>
+    <a class="sidebar-logout" th:href="@{/login}">↪ <span>Sair</span></a>
+  </aside>
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="mobile-sidebar-toggle" id="sidebarToggle">☰</button>
+      <div><span class="eyebrow">Minha conta</span><h1>Meu perfil</h1><p>Confira e edite suas informações.</p></div>
+      <div class="avatar">MA</div>
+    </header>
+    <section class="profile-card panel">
+      <div class="profile-cover"></div>
+      <div class="profile-main">
+        <div class="profile-avatar">MA</div>
+        <div class="profile-title">
+          <h2 id="profileName" th:text="${nome}">Nome</h2>
+          <span class="role-badge" th:text="${tipo}">Tipo</span>
+          <p>Participante desde março de 2026</p>
+        </div>
+        <button class="btn btn-primary" id="editProfile">✎ Editar perfil</button>
+      </div>
+      <div class="profile-info-grid">
+        <div><span>Nome completo</span><strong id="profileNameInfo" th:text="${nome}">Nome</strong></div>
+        <div><span>E-mail</span><strong id="profileEmail" th:text="${email}">E-mail</strong></div>
+        <div><span>Telefone</span><strong id="profilePhone" th:text="${telefone}">Telefone</strong></div>
+        <div><span>Tipo de usuário</span><strong th:text="${tipo}">Tipo</strong></div>
+        <div class="full"><span>Endereço</span><strong id="profileAddress" th:text="${endereco}">Endereço</strong></div>
+      </div>
+    </section>
+  </main>
+  <div class="modal" id="profileModal"><div class="modal-content"><button class="modal-close" data-close>×</button><h2>Editar perfil</h2><p class="form-intro">Atualize suas informações.</p>
+    <form id="profileForm"><label for="editName">Nome</label><input id="editName" type="text"><label for="editEmail">E-mail</label><input id="editEmail" type="email"><label for="editPhone">Telefone</label><input id="editPhone" type="tel"><label for="editAddress">Endereço</label><input id="editAddress" type="text"><button class="btn btn-primary btn-full" type="submit">Salvar alterações</button></form>
+  </div></div>
+  <script th:src="@{/js/script.js}"></script>
+  <script>
+    const modal = document.getElementById('profileModal');
+    const open = document.getElementById('editProfile');
+    const form = document.getElementById('profileForm');
+    const closeModal = () => modal.classList.remove('show');
+    open.addEventListener('click', () => {
+      document.getElementById('editName').value = document.getElementById('profileName').textContent;
+      document.getElementById('editEmail').value = document.getElementById('profileEmail').textContent;
+      document.getElementById('editPhone').value = document.getElementById('profilePhone').textContent;
+      document.getElementById('editAddress').value = document.getElementById('profileAddress').textContent;
+      modal.classList.add('show');
+    });
+    document.querySelector('[data-close]').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('editName').value.trim();
+      if (!name) return alert('Informe seu nome.');
+      document.getElementById('profileName').textContent = name;
+      document.getElementById('profileNameInfo').textContent = name;
+      document.getElementById('profileEmail').textContent = document.getElementById('editEmail').value.trim();
+      document.getElementById('profilePhone').textContent = document.getElementById('editPhone').value.trim();
+      document.getElementById('profileAddress').textContent = document.getElementById('editAddress').value.trim();
+      closeModal();
+      alert('Perfil atualizado com sucesso!');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doações | Logística Solidária</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <link rel="stylesheet" th:href="@{/css/responsivo.css}">
+</head>
+<body class="dashboard-body">
+  <aside class="sidebar" id="sidebar">
+    <a class="logo sidebar-logo" th:href="@{/}"><span class="logo-mark">♥</span> Logística <strong>Solidária</strong></a>
+    <nav>
+      <a th:href="@{/dashboard}">▦ <span>Dashboard</span></a>
+      <a class="active" th:href="@{/doacoes}">🎁 <span>Doações</span></a>
+      <a th:href="@{/rastreamento}">📍 <span>Rastreamento</span></a>
+      <a th:href="@{/perfil}">👤 <span>Perfil</span></a>
+    </nav>
+    <a class="sidebar-logout" th:href="@{/login}">↪ <span>Sair</span></a>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="mobile-sidebar-toggle" id="sidebarToggle">☰</button>
+      <div><span class="eyebrow">Contribuições</span><h1>Doações</h1><p>Encontre e acompanhe as doações da plataforma.</p></div>
+      <div class="avatar">MA</div>
+    </header>
+
+    
+    <form method="get" th:action="@{/doacoes}" class="filters-bar">
+      <div class="search-box">⌕<input type="search" name="busca" placeholder="Pesquisar..."></div>
+      <select name="status" onchange="this.form.submit()">
+        <option value="">Todos os status</option>
+        <option value="Entregue" th:selected="${statusSelecionado == 'Entregue'}">Entregue</option>
+        <option value="Em transporte" th:selected="${statusSelecionado == 'Em transporte'}">Em transporte</option>
+        <option value="Pendente" th:selected="${statusSelecionado == 'Pendente'}">Pendente</option>
+      </select>
+      <select name="categoria" onchange="this.form.submit()">
+        <option value="">Todas as categorias</option>
+        <option value="Alimentos" th:selected="${categoriaSelecionada == 'Alimentos'}">Alimentos</option>
+        <option value="Vestuário" th:selected="${categoriaSelecionada == 'Vestuário'}">Vestuário</option>
+        <option value="Higiene" th:selected="${categoriaSelecionada == 'Higiene'}">Higiene</option>
+        <option value="Educação" th:selected="${categoriaSelecionada == 'Educação'}">Educação</option>
+      </select>
+    </form>
+
+    
+    <div class="donations-grid" id="donationsGrid">
+      <article class="donation-card" th:each="doacao : ${doacoes}">
+        <div class="donation-top">
+          <span class="donation-category" th:text="${doacao.categoria}">Categoria</span>
+          <span class="status" th:classappend="${doacao.status == 'Entregue'} ? 'delivered-status' : (${doacao.status == 'Em transporte'} ? 'transit-status' : 'pending-status')"
+                th:text="${doacao.status}">Status</span>
+        </div>
+        <h3 th:text="${doacao.nome}">Nome da doação</h3>
+        <p th:text="${doacao.descricao}">Descrição</p>
+        <div class="donation-meta">
+          <span th:text="'📦 ' + ${doacao.quantidade}">Quantidade</span>
+          <span th:text="'📍 ' + ${doacao.localizacao}">Local</span>
+          <span th:text="'📅 ' + ${doacao.data}">Data</span>
+        </div>
+      </article>
+    </div>
+
+    <p class="empty-state" th:if="${doacoes.isEmpty()}">Nenhuma doação encontrada com esses filtros.</p>
+
+    <a th:href="@{/doacoes/nova}" class="btn btn-primary">+ Nova doação</a>
+  </main>
+  <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

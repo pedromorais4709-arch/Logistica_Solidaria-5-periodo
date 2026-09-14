@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Logística Solidária</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <link rel="stylesheet" th:href="@{/css/responsivo.css}">
+</head>
+<body class="dashboard-body">
+  <aside class="sidebar" id="sidebar">
+    <a class="logo sidebar-logo" th:href="@{/}"><span class="logo-mark">♥</span> Logística <strong>Solidária</strong></a>
+    <nav>
+      <a class="active" th:href="@{/dashboard}">▦ <span>Dashboard</span></a>
+      <a th:href="@{/doacoes}">🎁 <span>Doações</span></a>
+      <a href="#">📋 <span>Pedidos</span></a>
+      <a th:href="@{/rastreamento}">📍 <span>Rastreamento</span></a>
+      <a href="#">🔔 <span>Notificações <em>3</em></span></a>
+      <a th:href="@{/perfil}">👤 <span>Perfil</span></a>
+    </nav>
+    <a class="sidebar-logout" th:href="@{/login}" id="logoutBtn">↪ <span>Sair</span></a>
+  </aside>
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="mobile-sidebar-toggle" id="sidebarToggle">☰</button>
+      <div><span class="eyebrow">Painel de controle</span><h1>Olá, <span th:text="${nomeUsuario}">Usuário</span>! 👋</h1><p>Acompanhe suas atividades na plataforma.</p></div>
+      <div class="header-user"><span>🔔</span><div class="avatar">MA</div></div>
+    </header>
+    <section class="dashboard-stats">
+      <article class="dash-stat"><div class="stat-icon">🎁</div><span>Total de doações</span><strong th:text="${totalDoacoes}">0</strong><small>+8% este mês</small></article>
+      <article class="dash-stat"><div class="stat-icon pending">⏳</div><span>Doações pendentes</span><strong th:text="${pendentes}">0</strong><small>Aguardando ação</small></article>
+      <article class="dash-stat"><div class="stat-icon delivered">✓</div><span>Doações entregues</span><strong th:text="${entregues}">0</strong><small>+12% este mês</small></article>
+      <article class="dash-stat"><div class="stat-icon orders">📋</div><span>Pedidos ativos</span><strong>04</strong><small>3 novos hoje</small></article>
+    </section>
+    <section class="dashboard-grid">
+      <article class="panel recent-panel">
+        <div class="panel-heading"><div><h2>Doações recentes</h2><p>Últimas movimentações cadastradas.</p></div><a th:href="@{/doacoes}">Ver todas →</a></div>
+        <div class="table-wrap"><table><thead><tr><th>Doação</th><th>Categoria</th><th>Data</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr th:each="doacao : ${doacoesRecentes}">
+            <td><b th:text="${doacao.nome}">Nome</b><small th:text="${doacao.id}">ID</small></td>
+            <td th:text="${doacao.categoria}">Categoria</td>
+            <td th:text="${doacao.data}">Data</td>
+            <td>
+              <span class="status delivered-status" th:if="${doacao.status == 'Entregue'}" th:text="${doacao.status}">Status</span>
+              <span class="status transit-status" th:if="${doacao.status == 'Em transporte'}" th:text="${doacao.status}">Status</span>
+              <span class="status pending-status" th:if="${doacao.status == 'Pendente'}" th:text="${doacao.status}">Status</span>
+            </td>
+          </tr>
+        </tbody></table></div>
+      </article>
+      <article class="panel quick-panel"><div class="panel-heading"><div><h2>Ações rápidas</h2><p>O que deseja fazer?</p></div></div>
+        <a th:href="@{/doacoes/nova}" class="quick-action"><span>🎁</span><div><b>Nova doação</b><small>Cadastre uma contribuição</small></div><i>→</i></a>
+        <a href="#" class="quick-action"><span>📋</span><div><b>Ver pedidos</b><small>Confira quem precisa de ajuda</small></div><i>→</i></a>
+        <a th:href="@{/rastreamento}" class="quick-action"><span>📍</span><div><b>Rastrear entrega</b><small>Acompanhe uma doação</small></div><i>→</i></a>
+      </article>
+    </section>
+  </main>
+  <script th:src="@{/js/script.js}"></script>
+</body>
+</html>
