@@ -6,7 +6,7 @@
 
 O **Logística Solidária** é um sistema desenvolvido como projeto acadêmico, com o objetivo de conectar doadores, beneficiários, voluntários e organizações não governamentais (ONGs) em uma única plataforma. A aplicação tem como propósito facilitar o gerenciamento, a distribuição e o acompanhamento de doações, promovendo maior organização, transparência e impacto social.
 
-Este projeto foi desenvolvido utilizando o framework **Spring Boot**, adotando o padrão arquitetural MVC (Model-View-Controller) e o motor de templates **Thymeleaf** para renderização das páginas.
+Este projeto foi desenvolvido utilizando o framework **Spring Boot**, e o motor de templates **Thymeleaf** para renderização das páginas.
 
 ## Tecnologias Utilizadas
 
