@@ -1,0 +1,10 @@
+com\logisticasolidaria\LogisticaSolidariaApplication.class
+com\logisticasolidaria\Controller\DashboardController.class
+com\logisticasolidaria\Controller\DoacaoController.class
+com\logisticasolidaria\Controller\AuthController.class
+com\logisticasolidaria\Model\Usuario.class
+com\logisticasolidaria\Service\DoacaoService.class
+com\logisticasolidaria\Controller\PerfilController.class
+com\logisticasolidaria\Controller\HomeController.class
+com\logisticasolidaria\Controller\RastreamentoController.class
+com\logisticasolidaria\Model\Doacao.class
