@@ -2,16 +2,23 @@ package com.logisticasolidaria.Controller;
 
 import com.logisticasolidaria.Model.Doacao;
 import com.logisticasolidaria.Service.DoacaoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/doacoes")
 public class DoacaoController {
-     @Autowired
-    private DoacaoService doacaoService;
+
+    private final DoacaoService doacaoService;
+
+    public DoacaoController(DoacaoService doacaoService) {
+        this.doacaoService = doacaoService;
+    }
 
     @GetMapping
     public String listarDoacoes(
@@ -27,14 +34,18 @@ public class DoacaoController {
 
     @GetMapping("/nova")
     public String novaDoacaoForm(Model model) {
-        model.addAttribute("doacao", new Doacao(null, null, null, null, null, null, null, null));
+        model.addAttribute("doacao", new Doacao());
         return "nova-doacao";
     }
 
     @PostMapping("/nova")
-    public String salvarDoacao(@ModelAttribute Doacao doacao) {
-        doacao.setId("DOA-" + (1000 + (int) (Math.random() * 9000)));
+    public String salvarDoacao(@Valid @ModelAttribute Doacao doacao,
+                               BindingResult result) {
+        if (result.hasErrors()) {
+            return "nova-doacao";
+        }
         doacao.setStatus("Pendente");
+        doacao.setDataCadastro(LocalDate.now());
         doacaoService.adicionar(doacao);
         return "redirect:/doacoes";
     }

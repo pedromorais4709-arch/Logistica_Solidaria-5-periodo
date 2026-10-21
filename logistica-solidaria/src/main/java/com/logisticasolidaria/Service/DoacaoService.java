@@ -1,50 +1,45 @@
 package com.logisticasolidaria.Service;
 
-import org.springframework.stereotype.Service;
 import com.logisticasolidaria.Model.Doacao;
+import com.logisticasolidaria.Repository.DoacaoRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DoacaoService {
-      private final List<Doacao> doacoes = new ArrayList<>();
 
-    public DoacaoService() {
-        doacoes.add(new Doacao("DOA-1025", "Cesta básica", "Alimentos", "Maceió - AL",
-                "Entregue", "Alimentos essenciais para famílias.", "20 unidades", "08/09/2026"));
-        doacoes.add(new Doacao("DOA-1024", "Roupas infantis", "Vestuário", "Rio Largo - AL",
-                "Em transporte", "Peças em bom estado para crianças.", "35 peças", "07/09/2026"));
-        doacoes.add(new Doacao("DOA-1023", "Material escolar", "Educação", "Maceió - AL",
-                "Pendente", "Cadernos, lápis e mochilas para estudantes.", "50 kits", "06/09/2026"));
-        doacoes.add(new Doacao("DOA-1022", "Kit higiene", "Higiene", "Satuba - AL",
-                "Entregue", "Itens básicos de higiene pessoal.", "30 kits", "05/09/2026"));
-        doacoes.add(new Doacao("DOA-1021", "Cobertores", "Vestuário", "Marechal Deodoro - AL",
-                "Em transporte", "Cobertores para famílias em situação vulnerável.", "18 unidades", "04/09/2026"));
-        doacoes.add(new Doacao("DOA-1020", "Alimentos não perecíveis", "Alimentos", "Maceió - AL",
-                "Pendente", "Arroz, feijão, massas e outros alimentos.", "40 cestas", "03/09/2026"));
-    }
+    private final DoacaoRepository doacaoRepository;
 
-    public List<Doacao> listarTodas() {
-        return doacoes;
+    public DoacaoService(DoacaoRepository doacaoRepository) {
+        this.doacaoRepository = doacaoRepository;
     }
 
     public List<Doacao> filtrar(String status, String categoria) {
-        return doacoes.stream()
-                .filter(d -> status == null || status.isEmpty() || d.getStatus().equals(status))
-                .filter(d -> categoria == null || categoria.isEmpty() || d.getCategoria().equals(categoria))
+        return doacaoRepository.findAll().stream()
+                .filter(d -> status == null || status.isBlank() || status.equals(d.getStatus()))
+                .filter(d -> categoria == null || categoria.isBlank() || categoria.equals(d.getCategoria()))
                 .toList();
     }
 
-    public Doacao buscarPorId(String id) {
-        return doacoes.stream().filter(d -> d.getId().equals(id)).findFirst().orElse(null);
+    public Doacao adicionar(Doacao doacao) {
+        return doacaoRepository.save(doacao);
     }
 
-    public void adicionar(Doacao doacao) {
-        doacoes.add(doacao);
+    public List<Doacao> listarTodas() {
+        return doacaoRepository.findAll();
     }
 
     public long contarPorStatus(String status) {
-        return doacoes.stream().filter(d -> d.getStatus().equals(status)).count();
+        return doacaoRepository.findAll().stream()
+                .filter(d -> status.equals(d.getStatus()))
+                .count();
+    }
+
+    public List<Doacao> listarRecentes(int limite) {
+        return doacaoRepository.findAll().stream()
+                .sorted((a, b) -> b.getId().compareTo(a.getId()))
+                .limit(limite)
+                .toList();
     }
 }
