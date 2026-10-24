@@ -1,125 +1,95 @@
-# Logística Solidária
-
-# Alunos: Pedro Barbosa Morais e Samuel Castello Branco
-
-## Descrição do Projeto
-
-O **Logística Solidária** é um sistema desenvolvido como projeto acadêmico, com o objetivo de conectar doadores, beneficiários, voluntários e organizações não governamentais (ONGs) em uma única plataforma. A aplicação tem como propósito facilitar o gerenciamento, a distribuição e o acompanhamento de doações, promovendo maior organização, transparência e impacto social.
-
-Este projeto foi desenvolvido utilizando o framework **Spring Boot**, e o motor de templates **Thymeleaf** para renderização das páginas.
-
-## Tecnologias Utilizadas
-
-- **Java 17**
-- **Spring Boot** (módulos Web e Thymeleaf)
-- **Spring Boot DevTools**
-- **Maven** — gerenciamento de dependências e automação de build
-- **Thymeleaf** — motor de templates para integração entre back-end e front-end
-- **HTML5, CSS3 e JavaScript** — camada de apresentação
-
-## Pré-requisitos
-
-Para executar este projeto localmente, é necessário possuir os seguintes componentes instalados:
-
-- Java Development Kit (JDK), versão 17 ou superior
-- Apache Maven
-
-### Instalação no Fedora
-
-```bash
-sudo dnf install java-17-openjdk maven
-```
-
-### Instalação no Ubuntu/Debian
-
-```bash
-sudo apt install openjdk-17-jdk maven
-```
-
-### Instalação no Windows
-
-1. Baixe e instale o **JDK 17** (ou superior) através do site oficial da Oracle ou de uma distribuição OpenJDK, como a [Eclipse Temurin](https://adoptium.net/).
-
-2. Baixe o **Apache Maven** em [maven.apache.org/download.cgi](https://maven.apache.org/download.cgi), na versão "Binary zip archive".
-
-3. Extraia o arquivo `.zip` do Maven em uma pasta de sua preferência, por exemplo: `C:\Program Files\Apache\maven`.
-
-4. Configure as variáveis de ambiente:
-   - Abra o menu Iniciar e pesquise por **"Variáveis de ambiente"**
-   - Clique em **"Editar as variáveis de ambiente do sistema"**
-   - Em **Variáveis do sistema**, adicione:
-     - `JAVA_HOME`: caminho da instalação do JDK (ex: `C:\Program Files\Java\jdk-17`)
-     - `MAVEN_HOME`: caminho da pasta onde o Maven foi extraído (ex: `C:\Program Files\Apache\maven`)
-   - Edite a variável `Path` e adicione:
-     - `%JAVA_HOME%\bin`
-     - `%MAVEN_HOME%\bin`
-
-5. Reinicie o terminal (Prompt de Comando ou PowerShell) para que as alterações tenham efeito.
-
-### Verificação da instalação
-
-Para confirmar que as ferramentas foram instaladas corretamente, execute:
-
-```bash
+Logística Solidária
+Integrantes: Pedro Barbosa Morais e Samuel Castello Branco
+Descrição do Projeto
+O Logística Solidária é um sistema web desenvolvido como projeto acadêmico para conectar doadores, beneficiários, voluntários e organizações não governamentais (ONGs) em uma única plataforma. A aplicação facilita o gerenciamento, a distribuição e o acompanhamento de doações, promovendo organização, transparência e impacto social.
+O projeto evoluiu de um site estático (HTML, CSS e JavaScript) para uma aplicação web completa com Spring Boot, Thymeleaf, JPA e PostgreSQL. A interface original foi mantida e integrada aos dados reais gravados no banco.
+Tecnologias Utilizadas
+Java 17
+Spring Boot (Web, Thymeleaf, Data JPA, Validation, DevTools)
+Spring Data JPA / Hibernate — persistência e mapeamento objeto-relacional
+PostgreSQL — banco de dados
+Flyway — controle de versão do banco (migrations)
+Bean Validation — validação no back-end (@Valid, BindingResult)
+Thymeleaf — integração entre back-end e páginas HTML
+Maven — gerenciamento de dependências e build
+HTML5, CSS3 e JavaScript — camada de apresentação
+Arquitetura
+O projeto segue o fluxo em camadas:
+Controller  →  Service  →  Repository  →  Banco de Dados
+Controller: recebe as requisições (@GetMapping, @PostMapping, @PathVariable) e envia dados às páginas por Model.
+Service: concentra as regras de negócio.
+Repository: acesso aos dados via JpaRepository.
+Model: entidades JPA (@Entity, @Id, @GeneratedValue) com relacionamento persistido no banco.
+Pré-requisitos
+JDK 17 ou superior
+Apache Maven
+PostgreSQL instalado e em execução
+Instalação no Fedora
+sudo dnf install java-17-openjdk maven postgresql-server
+Instalação no Ubuntu/Debian
+sudo apt install openjdk-17-jdk maven postgresql
+Instalação no Windows
+Instale o JDK 17 (por exemplo, Eclipse Temurin).
+Baixe o Apache Maven em maven.apache.org/download.cgi (Binary zip archive) e extraia em uma pasta, como C:\Program Files\Apache\maven.
+Crie as variáveis de ambiente JAVA_HOME e MAVEN_HOME e adicione %JAVA_HOME%\bin e %MAVEN_HOME%\bin ao Path.
+Instale o PostgreSQL pelo instalador oficial.
+Reabra o terminal e confirme:
 java -version
 mvn -version
-```
-
-## Instruções de Instalação e Execução
-
-1. Clone o repositório para sua máquina local:
-
-```bash
-git clone <URL-DO-REPOSITORIO>
-cd logistica-solidaria
-```
-
-2. Execute a aplicação por meio do Maven:
-
-```bash
+Configuração do Banco de Dados
+Crie o banco no PostgreSQL:
+CREATE DATABASE logistica_solidaria;
+Ajuste as credenciais em logistica-solidaria/src/main/resources/application.properties:
+spring.datasource.url=jdbc:postgresql://localhost:5432/logistica_solidaria
+spring.datasource.username=SEU_USUARIO
+spring.datasource.password=SUA_SENHA
+As tabelas são criadas automaticamente pelo Flyway na primeira execução, a partir dos arquivos em src/main/resources/db/migration. Não é necessário criar tabelas manualmente.
+Como Executar
+Clone o repositório e entre na pasta do projeto:
+git clone https://github.com/pedromorais4709-arch/Logistica_Solidaria-5-periodo.git
+cd Logistica_Solidaria-5-periodo/logistica-solidaria
+Execute a aplicação:
 mvn spring-boot:run
-```
-
-3. Após a inicialização, a aplicação estará disponível no navegador através do seguinte endereço:
-
-```
+Acesse no navegador:
 http://localhost:8080
-```
-
-**Observação:** caso a porta 8080 já esteja sendo utilizada por outro processo na máquina, é possível alterá-la no arquivo `src/main/resources/application.properties`:
-
-```properties
+Se a porta 8080 estiver ocupada, altere em application.properties:
 server.port=8081
-```
-
-## Estrutura do Projeto
-
-```
+Estrutura do Projeto
 logistica-solidaria/
 ├── pom.xml
 └── src/
     └── main/
-        ├── java/
-        │   └── com/logisticasolidaria/
-        │       ├── LogisticaSolidariaApplication.java
-        │       ├── controller/     — camada responsável pelo roteamento e tratamento das requisições
-        │       ├── model/          — classes que representam as entidades do sistema (Doação, Usuário)
-        │       └── service/        — camada de regras de negócio e manipulação dos dados simulados
+        ├── java/com/logisticasolidaria/
+        │   ├── LogisticaSolidariaApplication.java
+        │   ├── controller/   — rotas e tratamento das requisições
+        │   ├── service/      — regras de negócio
+        │   ├── repository/   — interfaces JpaRepository
+        │   └── model/        — entidades JPA
         └── resources/
             ├── application.properties
-            ├── static/              — arquivos estáticos (CSS, JavaScript e imagens)
-            └── templates/           — páginas HTML processadas pelo Thymeleaf
-```
-
-## Funcionalidades e Rotas
-
-| Rota | Descrição |
-|---|---|
-| `/` | Página inicial da plataforma |
-| `/login` | Autenticação de usuários |
-| `/cadastro` | Cadastro de novos usuários |
-| `/dashboard` | Painel com estatísticas gerais e doações recentes |
-| `/doacoes` | Listagem de doações, com filtros por status e categoria |
+            ├── db/migration/ — migrations do Flyway
+            ├── static/       — CSS, JavaScript e imagens
+            └── templates/    — páginas Thymeleaf
+Funcionalidades e Rotas
+Rota
+Descrição
+/
+Página inicial da plataforma
+/login
+Autenticação de usuários
+/cadastro
+Cadastro de novos usuários
+/dashboard
+Painel com estatísticas e doações recentes (dados do banco)
+/doacoes
+Listagem de doações com filtros por status e categoria
+/doacoes/nova
+Formulário de cadastro de doação, com validação
+/rastreamento
+Acompanhamento do status de uma doação
+/perfil
+Visualização e edição dos dados do usuário
+O sistema permite cadastrar, listar, ver detalhes, editar e excluir doações, com validação dos formulários no back-end e exibição de mensagens de erro.
 | `/doacoes/nova` | Formulário para cadastro de novas doações |
 | `/rastreamento` | Acompanhamento do status de uma doação |
 | `/perfil` | Visualização e edição dos dados do usuário |
